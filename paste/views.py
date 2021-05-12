@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, HttpResponse, redirect
 from django.urls.base import reverse
-from .forms import CreatePasteForm
+from .forms import CreatePasteForm,editPasteForm
 from django.contrib.auth.models import User
 from .models import  Paste
 # Create your views here.
@@ -33,3 +33,21 @@ def pasteView(request, id):
     #url = 'http://127.0.0.1:8000/paste/pasteview/' + id
     
     return render(request, 'paste/view_paste.html',{'paste':paste})
+
+def editPaste(request):
+    paste_id = request.GET.get('paste_num', None)
+    paste = get_object_or_404(Paste, pk=paste_id)
+
+    if request.method == "POST":
+        # print('works')
+        form = editPasteForm(request.POST, instance=paste)
+        print(form.errors)
+
+        if form.is_valid():
+            # print('working!')
+            paste.edited = True
+            form.save()
+            return paste.get_absolute_url()
+
+    form = editPasteForm(instance=paste)
+    return render(request, 'paste/edit_paste.html', {'form': form})

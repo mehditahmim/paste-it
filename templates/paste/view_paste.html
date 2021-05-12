@@ -18,7 +18,7 @@
                         <div class="card-body">
                            
                             <div class="media">
-
+                               
                                 <div class="media-body">
                                     <h5 class="mt-0">
                                         <i class="fa fa-paste blue-grey-text small"></i>
@@ -36,7 +36,7 @@
                                 </div>
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.id == paste.author.id %}
-                                        <a href="#" class="badge badge-info mr-2">
+                                        <a href="{% url 'paste:editPaste'%}?paste_num={{paste.id}}" class="badge badge-info mr-2">
                                             <i class="fa fa-edit"></i> Edit
                                         </a>
                                         <a href="#" class="badge badge-danger"
@@ -46,6 +46,7 @@
                                     {% endif %}
                                 {% endif %}
                             </div>
+                            
                             {% if request.user.is_authenticated %}
                                 {% if request.user.id == paste.author.id %}
                                     <p class="text-muted text-center">
@@ -54,10 +55,12 @@
                                 {% endif %}
                             {% endif %}
                             <div class="card">
+                                
                                 <div class="card-header">
                                
                                 </div>
                                 <div class="card-body">
+                            
                                     <pre class="line-numbers language" id="pre">
                                             <code class="language" id="paste_content">
                                              {{ paste.text }}
@@ -65,9 +68,14 @@
                                      </pre>
                                 </div>
                             </div>
+                            {%if paste.edited%}
+                                    <small class="text-muted"> Edited
+                                    </small>
+                                    {%endif%}
 
                             <div class="form-group mt-3 mb-3">
                                 {% csrf_token %}
+                                
                                 <small class="text-muted">To share this paste please copy this url and send to your
                                     friends
                                 </small>
@@ -82,6 +90,7 @@
                                            readonly id="url">
                                 
                                 </div>
+                                
                             </div>
 
                            
