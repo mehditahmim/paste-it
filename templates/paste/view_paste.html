@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ paste.title }} {% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{% static 'css/prism-okadia.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <main>
+        <div class="container content">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+                           
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h5 class="mt-0">
+                                        <i class="fa fa-paste blue-grey-text small"></i>
+                            
+                                        {{ paste.title }}
+                                    </h5>
+                                    <p class="text-muted small">
+                                        <i class="fa fa-user"></i>
+                                        {% if paste.author %}
+                                            <a href="#"> {{ paste.author.username }} </a>
+                                        {% else %}
+                                            Guest
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                {% if request.user.is_authenticated %}
+                                    {% if request.user.id == paste.author.id %}
+                                        <a href="#" class="badge badge-info mr-2">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                        <a href="#" class="badge badge-danger"
+                                           onclick="return confirm('Are you sure?')">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            {% if request.user.is_authenticated %}
+                                {% if request.user.id == paste.author.id %}
+                                    <p class="text-muted text-center">
+                                        <small>This is one of your paste</small>
+                                    </p>
+                                {% endif %}
+                            {% endif %}
+                            <div class="card">
+                                <div class="card-header">
+                               
+                                </div>
+                                <div class="card-body">
+                                    <pre class="line-numbers language" id="pre">
+                                            <code class="language" id="paste_content">
+                                             {{ paste.text }}
+                                          </code>
+                                     </pre>
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3 mb-3">
+                                {% csrf_token %}
+                                <small class="text-muted">To share this paste please copy this url and send to your
+                                    friends
+                                </small>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-md btn-blue-grey m-0 px-3" id="copy-to-clipboard"
+                                                type="button" data-clipboard-target="#url">Link
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control" value="http://{{ request.get_host }}{% url 'paste:pasteView' paste.id%}"
+                                           readonly id="url">
+                                
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+{%endblock%}        
