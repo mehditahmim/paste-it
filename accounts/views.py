@@ -18,7 +18,8 @@ def registration(request):
             password1 = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password1)
             if user:
-                return HttpResponseRedirect(reverse('accounts:home'))
+                auth_login(request, user)
+                return HttpResponseRedirect(reverse('paste:createPaste'))
 
         else:
             return render(request, 'accounts/signup.html', {'form': form})
@@ -41,7 +42,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect(reverse('accounts:home'))
+            return redirect(reverse('paste:createPaste'))
         else:
             return render(request, 'accounts/login.html', {'form': form, 'error_message': "The username or password is wrong!"}, )
     else:

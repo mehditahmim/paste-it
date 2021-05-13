@@ -2,29 +2,25 @@
 {% load static %}
 {% block title %} {{ paste.title }} {% endblock %}
 
-{% block stylesheets %}
-
-    <link rel="stylesheet" href="{% static 'css/prism-okadia.css' %}">
-
-{% endblock %}
-
 {% block content %}
 
-    <main>
-        <div class="container content">
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="card">
-                        <div class="card-body">
+<main>
+    <div class="container content">
+        <div class="row">
+            {%include 'paste/recent_paste.html' %}
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
                            
-                            <div class="media">
-                               
-                                <div class="media-body">
-                                    <h5 class="mt-0">
-                                        <i class="fa fa-paste blue-grey-text small"></i>
+                        <div class="media">
                             
-                                        {{ paste.title }}
-                                    </h5>
+                               
+                            <div class="media-body">
+                                <h5 class="mt-0">
+                                    <i class="fa fa-paste blue-grey-text small"></i>
+                            
+                                    {{ paste.title }}
+                                </h5>
                                     <p class="text-muted small">
                                         <i class="fa fa-user"></i>
                                         {% if paste.author %}
@@ -36,10 +32,10 @@
                                 </div>
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.id == paste.author.id %}
-                                        <a href="{% url 'paste:editPaste'%}?paste_num={{paste.id}}" class="badge badge-info mr-2">
+                                        <a href="{% url 'paste:editPaste' paste.id%}" class="badge badge-info mr-2">
                                             <i class="fa fa-edit"></i> Edit
                                         </a>
-                                        <a href="#" class="badge badge-danger"
+                                        <a href="{% url 'paste:deletePaste' paste.id%}" class="badge badge-danger"
                                            onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i> Delete
                                         </a>
@@ -94,11 +90,11 @@
                             </div>
 
                            
-                        </div>
-                    </div>
-                </div>
-                
+                       </div>
+                 </div>
             </div>
+                
         </div>
+    </div>
 
 {%endblock%}        

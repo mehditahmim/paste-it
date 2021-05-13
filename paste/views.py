@@ -6,8 +6,10 @@ from .models import  Paste
 # Create your views here.
 
 def createPaste(request):
-
+    # This view is responsible for creating new paste
+    
     if request.method == 'POST':
+
         form = CreatePasteForm(request.POST)
 
         if form.is_valid():
@@ -28,16 +30,15 @@ def createPaste(request):
 
 
 def pasteView(request, id):
+    # This view shows a particular paste which is passed on to the views
 
+    latest_paste = Paste.objects.order_by('-created_at')[:5]
+    paste = get_object_or_404(Paste, pk=id)    
+    return render(request, 'paste/view_paste.html',{'paste':paste,'latest_paste':latest_paste})
+
+
+def editPaste(request, id):
     paste = get_object_or_404(Paste, pk=id)
-    #url = 'http://127.0.0.1:8000/paste/pasteview/' + id
-    
-    return render(request, 'paste/view_paste.html',{'paste':paste})
-
-def editPaste(request):
-    paste_id = request.GET.get('paste_num', None)
-    paste = get_object_or_404(Paste, pk=paste_id)
-
     if request.method == "POST":
         # print('works')
         form = editPasteForm(request.POST, instance=paste)
@@ -51,3 +52,18 @@ def editPaste(request):
 
     form = editPasteForm(instance=paste)
     return render(request, 'paste/edit_paste.html', {'form': form})
+
+def pasteList(request):
+    #This view renders a list of all the pastes
+
+    pastes = Paste.objects.all()
+    ctx = {}
+    ctx['header'] = ['Title', 'Text','Date']
+    ctx['pastes'] = pastes
+    
+    return render(request, 'paste/list_of_pastes.html', ctx)    
+
+def deletePaste(request, id):    
+    paste = get_object_or_404(Paste, pk=id)
+    paste.delete()
+    return redirect('paste:pasteList')

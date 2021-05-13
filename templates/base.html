@@ -6,13 +6,23 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}{% endblock %} - Paste-it</title>
+    <title>{% block title %}{% endblock %}</title>
     {% include 'stylesheets.html' %}
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
 
 {% include 'head.html' %}
+
+<body>
+    
+    <div id="main">
+      <article> </article>
+      
+      <aside></aside>
+    </div>
+    <footer></footer>
+  </body>
 
 {% block content %}{% endblock %}
 

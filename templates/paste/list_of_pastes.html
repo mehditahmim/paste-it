@@ -1,0 +1,36 @@
+
+{% extends 'base.html'%}
+
+{% load static %}
+{% block content %}
+
+<div class="container content">
+    <div class="row">
+        <div class="col-md-12" text-center>
+            <div class="card">
+            
+                <table class="table" align="center">
+                    <thead>
+                        <tr>
+                            {% for k in header %}
+                            <th>{{k}}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pastes %}
+                            <tr>
+                                <td> <a href="{%url 'paste:pasteView' p.id%}"> {{p.title}}</a></td>
+                                <td>{{p.text}}</td>
+                                <td>{{p.created_at}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+              </div>
+            </div>
+
+       
+    </div>
+</div>  
+{% endblock %}

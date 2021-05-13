@@ -8,24 +8,24 @@
     <div class="col-md-4 mx-auto">
       {% block title %} <h2>Edit a paste </h2>{%endblock%}
       <div class="container content">
-      <div class="card card-body">
-          <form class="form-group" method="POST" >             
-              {% csrf_token %}
-              {{form|crispy}}
+        <div class="card card-body">
+            <form class="form-group" method="POST" >             
+                {% csrf_token %}
+                {{form|crispy}}
                              
-        <button type = 'submit' class = 'btn btn-success' id="post-submit"> Save</button>
-          </form>
-          {% if messages %}
-          <ul class="messages">
-            {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
+                <button type = 'submit' class = 'btn btn-success' id="post-submit"> Save</button>
+            </form>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                            <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
   
-      </div>
+        </div>
+        </div>
+        </div>   
     </div>
-  </div>   
-</div>
 </div>
 {%endblock%}

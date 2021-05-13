@@ -1,0 +1,28 @@
+<div class="col-md-3">
+
+    <div class="card paste_list">
+        <div class="card-header blue-grey"> Recent Pastes</div>
+        <ul class="list-group list-group-flush">
+            {% if latest_paste.count %}
+                {% for paste in latest_paste %}
+
+                    <li class="list-group-item">
+                        <i class="fa fa-paste blue-grey-text small"></i>
+                        
+                        <a href="{%url 'paste:pasteView' paste.id %}">{{ paste.title }}</a>
+                        <p>
+                            <small class="text-muted">
+                                
+                                 {{ paste.created_at|timesince }}
+                            </small>
+                        </p>
+                    </li>
+                  
+                {% endfor %}
+                <a href="{% url 'paste:pasteList' %}">See all</a>
+            {% else %}
+                <li class="list-group-item text-center">No results</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
