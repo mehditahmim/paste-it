@@ -11,8 +11,9 @@ class CreatePasteForm(forms.ModelForm):
         model = Paste
         fields = ['title', 'text']
 
-class editPasteForm(forms.ModelForm):
+class EditPasteForm(forms.ModelForm):
 
     class Meta:
         model = Paste
-        fields = ['title', 'text']        
+        fields = ['title', 'text']  
+

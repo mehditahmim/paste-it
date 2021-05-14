@@ -14,7 +14,7 @@
               {% csrf_token %}
               {{form|crispy}}             
                
-          <button type = 'submit' class = 'btn btn-success' id="post-submit"> submit</button>
+          <button type = 'submit' class = 'btn btn-success' id="post-submit" name='create_paste' value="1"> submit</button>
           </form>
           {% if messages %}
           <ul class="messages">

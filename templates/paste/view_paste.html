@@ -30,11 +30,20 @@
                                         {% endif %}
                                     </p>
                                 </div>
-                                {% if request.user.is_authenticated %}
-                                    {% if request.user.id == paste.author.id %}
+                                
+                                        {% if request.user.is_authenticated %}
                                         <a href="{% url 'paste:editPaste' paste.id%}" class="badge badge-info mr-2">
                                             <i class="fa fa-edit"></i> Edit
                                         </a>
+                                        
+                                        {% else %}
+                                        <a href="{% url 'paste:editPasteByGuest' paste.id%}" class="badge badge-info mr-2">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </a>
+                                        {% endif %}
+
+                                        {% if request.user.is_authenticated %}
+                                        {% if request.user.id == paste.author.id %}
                                         <a href="{% url 'paste:deletePaste' paste.id%}" class="badge badge-danger"
                                            onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash"></i> Delete

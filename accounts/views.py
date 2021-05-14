@@ -19,7 +19,7 @@ def registration(request):
             user = authenticate(username=username, password=password1)
             if user:
                 auth_login(request, user)
-                return HttpResponseRedirect(reverse('paste:createPaste'))
+                return HttpResponseRedirect(reverse('home:index'))
 
         else:
             return render(request, 'accounts/signup.html', {'form': form})
@@ -42,7 +42,7 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
-            return redirect(reverse('paste:createPaste'))
+            return redirect(reverse('home:index'))
         else:
             return render(request, 'accounts/login.html', {'form': form, 'error_message': "The username or password is wrong!"}, )
     else:
