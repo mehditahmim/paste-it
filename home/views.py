@@ -3,8 +3,11 @@ from paste.models import Paste
 
 def index(request):
     
-    latest_paste = Paste.objects.order_by('-created_at')[:5]
-    return render(request, 'home/home.html',{'latest_paste':latest_paste})
+    pastes = Paste.objects.all().order_by('-created_at')[:5]
+    ctx = {}
+    ctx['header'] = ['Author','Title','Date']
+    ctx['pastes'] = pastes
+    return render(request, 'home/home.html',ctx)
     
 
 # Create your views here.

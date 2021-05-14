@@ -7,9 +7,6 @@ Home
 
 {%block content%}
 
-  <!-- ======= Header ======= -->
-
-
   <!-- ======= Hero Section ======= -->
 
   <section id="hero" class="d-flex align-items-center">
@@ -27,10 +24,37 @@ Home
       
       <div class="text-center">
         <a href="{% url 'paste:createPaste'%}" class="btn-get-started scrollto">Get Started</a>
-        <a href="{% url 'paste:pasteList'%}" class="btn-get-started scrollto">View paste's</a>
-        
+        <a href="{% url 'paste:pasteList'%}" class="btn-get-started scrollto">View paste's</a>       
       </div>
-      {% include 'paste/recent_paste.html' %}
+      <br>  
+      <div class="card">
+        <h2>Recent pastes</h2>
+        <table class="table" align="center">
+            <thead>
+                <tr>
+                    {% for k in header %}
+                    <th>{{k}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in pastes %}
+                    <tr>
+                        {%if p.author%}
+                        <td>  {{p.author.username}}</td>
+                        
+
+                        {%else%}
+                        <td>  Guest </td>
+                        {%endif%}
+                        <td> <a href="{%url 'paste:pasteView' p.id%}"> {{p.title}}</a></td>
+                        
+                        <td>{{p.created_at}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
       
         
   </section> 
