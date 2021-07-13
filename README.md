@@ -9,6 +9,5 @@ Technologies used
 * Database: SQLite
 * Language: Python 
 
-
-[Click to see the website](tahmim.pythonanywhere.com)
+http://tahmim.pythonanywhere.com/
 
